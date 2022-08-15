@@ -45,3 +45,8 @@ class BaseModel(object):
         """
         This returns a dictionary serialized for json
         """
+        serial = {}
+        serial.update(self.__dict__)
+        serial.update({'updated_at':self.updated_at.isoformat(), 'created_at':self.created_at.isoformat()})
+        serial.update({'__class__':self.__class__.__name__})
+        return serial
