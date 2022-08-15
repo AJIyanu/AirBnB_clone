@@ -9,6 +9,7 @@ this is all for now
 
 import uuid
 from datetime import datetime
+from models import *
 
 
 class BaseModel(object):
@@ -28,6 +29,7 @@ class BaseModel(object):
                 self.id = kwargs['id']
         else:
             self.id = str(uuid.uuid4())
+            storage.new(self)
         if 'created_at' in kwargs:
             self.created_at = datetime.strptime(kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
         else:
@@ -52,6 +54,7 @@ class BaseModel(object):
         It also updates the save time to update at
         """
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """
