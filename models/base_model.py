@@ -18,14 +18,26 @@ class BaseModel(object):
 
     id = 0
     created_at = 0
-    updated_at = 0
+    updated_at = datetime.now()
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """
         This initializes the class with Id, Date and Time
         """
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
+        if 'id' in kwargs:
+                self.id = kwargs['id']
+        else:
+            self.id = str(uuid.uuid4())
+        if 'created_at' in kwargs:
+            self.created_at = datetime.strptime(kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
+        else:
+            self.created_at = datetime.now()
+        if 'updated_at' in kwargs:
+            self.updated_at = datetime.strptime(kwargs['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
+        if 'name' in kwargs:
+            self.name = kwargs['name']
+        if 'my_number' in kwargs:
+            self.my_number = kwargs['my_number']
 
     def __str__(self):
         """
