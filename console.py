@@ -7,6 +7,8 @@ This is a commnent
 import cmd
 import os
 
+from models.base_model import BaseModel
+
 class HBNBCommand(cmd.Cmd):
     """
     This is my console class
@@ -34,6 +36,19 @@ class HBNBCommand(cmd.Cmd):
 
     do_EOF = do_quit
     help_EOF = help_quit
+
+    def do_create(self, arg):
+        """
+        Creates a new user
+        """
+        if arg == "BaseModel":
+            newuser = BaseModel()
+            newuser.save()
+            print(newuser.id)
+        elif arg == "":
+            print("** class name missing **")
+        else:
+            print("** class doesn't exist **")
 
 
 if __name__ == '__main__':
