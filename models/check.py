@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 from base_model import BaseModel
-from models import storage
+from __init__ import storage
 __package__ = None
 
 all_objs = storage.all()

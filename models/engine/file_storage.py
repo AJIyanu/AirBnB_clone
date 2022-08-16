@@ -34,7 +34,7 @@ class FileStorage:
         Now we need to serialize our object into json file
         """
         with open(self.__file_path, "a+") as file:
-            jason.dump(self.__object, file)
+            json.dump(self.__object, file)
 
     def reload(self):
         """
