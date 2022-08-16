@@ -7,10 +7,12 @@ can also update from json
 this is all for now
 """
 
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 import uuid
 from datetime import datetime
-from models import *
-
+__package__ = None
+import models.storage
 
 class BaseModel(object):
     """

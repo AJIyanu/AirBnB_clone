@@ -5,6 +5,7 @@ to json to string and back
 """
 
 import json
+__package__ = None
 
 
 class FileStorage:

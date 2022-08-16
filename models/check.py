@@ -2,6 +2,7 @@
 
 from base_model import BaseModel
 from models import storage
+__package__ = None
 
 all_objs = storage.all()
 print("-- Reloaded objects --")
