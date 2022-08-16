@@ -9,8 +9,7 @@ this is all for now
 
 import uuid
 from datetime import datetime
-__package__ = None
-from __init__ import storage
+from . import storage
 
 class BaseModel(object):
     """
