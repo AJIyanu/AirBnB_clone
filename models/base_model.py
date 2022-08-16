@@ -39,7 +39,7 @@ class BaseModel(object):
             self.name = kwargs['name']
         if 'my_number' in kwargs:
             self.my_number = kwargs['my_number']
-        if kwargs is None:
+        if 'id' not in kwargs:
             storage.new(self)
 
     def __str__(self):
