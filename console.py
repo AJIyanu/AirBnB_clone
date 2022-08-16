@@ -20,7 +20,7 @@ class HBNBCommand(cmd.Cmd):
         """
         pass
 
-    def do_quit(self):
+    def do_quit(self, s):
         """
         Quits the program
         """
