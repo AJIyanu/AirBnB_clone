@@ -5,9 +5,19 @@ This is a commnent
 """
 
 import cmd
+import os
 
 class HBNBCommand(cmd.Cmd):
-    pass
+    """
+    This is my console class
+    """
+
+    do_quit(self):
+        """
+        Quit cmd to exit the program
+        """
+        return True
+
 
 if __name__ == '__main__':
-    HBNBCommand().cmdloop()
+    HBNBCommand().cmdloop("(hbnb)")
