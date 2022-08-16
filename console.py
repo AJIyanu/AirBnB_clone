@@ -12,12 +12,30 @@ class HBNBCommand(cmd.Cmd):
     This is my console class
     """
 
-    do_quit(self):
+    prompt = '(hbnb) '
+
+    def emptyline(self):
         """
-        Quit cmd to exit the program
+        Do nothing when no command entered
+        """
+        pass
+
+    def do_quit(self):
+        """
+        Quits the program
         """
         return True
 
+    def help_quit(self):
+        """
+        documantation for quit
+        """
+        print("Quit command to exit the program")
+
+    do_EOF = do_quit
+    help_EOF = help_quit
+
 
 if __name__ == '__main__':
-    HBNBCommand().cmdloop("(hbnb)")
+    HBNBCommand().cmdloop()
+
