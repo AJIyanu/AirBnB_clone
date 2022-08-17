@@ -25,7 +25,7 @@ class FileStorage:
         """
         This method creates the dictionary of object saved
         """
-        key = "{}:{}".format(obj.__class__.__name__, obj.id)
+        key = "{}.{}".format(obj.__class__.__name__, obj.id)
         self.__object.update({key: obj.to_dict()})
 
     def save(self):
