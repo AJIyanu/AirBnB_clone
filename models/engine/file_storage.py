@@ -13,27 +13,27 @@ class FileStorage:
     """
 
     __file_path = 'file.json'
-    __object = {}
+    __objects = {}
 
     def all(self):
         """
         returns a dictionary in the object
         """
-        return (self.__object)
+        return (self.__objects)
 
     def new(self, obj):
         """
         This method creates the dictionary of object saved
         """
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        self.__object.update({key: obj.to_dict()})
+        self.__objects.update({key: obj.to_dict()})
 
     def save(self):
         """
         Now we need to serialize our object into json file
         """
         with open(self.__file_path, "w") as file:
-            json.dump(self.__object, file)
+            json.dump(self.__objects, file)
 
     def reload(self):
         """
@@ -41,6 +41,6 @@ class FileStorage:
         """
         try:
             with open(self.__file_path, "r") as fileread:
-                self.__object.update(json.load(fileread))
+                self.__objects.update(json.load(fileread))
         except Exception:
             pass
