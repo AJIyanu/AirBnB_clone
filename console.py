@@ -5,11 +5,12 @@ This is a commnent
 """
 
 import cmd
-from email.mime import base
+import json
 import os
 
 from models.base_model import BaseModel
 from models import storage
+
 
 class HBNBCommand(cmd.Cmd):
     """
@@ -69,7 +70,6 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
             basekey = "{}.{}".format(splitted[0], splitted[1])
-            print(basekey)
             if basekey not in objdict:
                 print("** no instance found **")
                 return
@@ -80,9 +80,26 @@ class HBNBCommand(cmd.Cmd):
         """
         Deletes an instance based on class name
         """
-        
+        storage.reload()
+        objdict = storage.all()
+        if arg == "":
+            print("** class name missing **")
+        else:
+            splitted = arg.split()
+            if len(splitted) == 1:
+                print("** instance id missing **")
+                return
+            if splitted[0] != "BaseModel":
+                print("** class doesn't exist **")
+                return
+            basekey = "{}.{}".format(splitted[0], splitted[1])
+            if basekey not in objdict:
+                print("** no instance found **")
+            else:
+                del objdict[basekey]
+            with open("file.json", "w") as file:
+                json.dump(objdict, file)
 
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-
