@@ -100,6 +100,13 @@ class HBNBCommand(cmd.Cmd):
             with open("file.json", "w") as file:
                 json.dump(objdict, file)
 
+    def do_all(self, arg):
+        """
+        prints a list of string representation of all instance
+        if a class name is specified, all instance of the class is printed.
+        """
+        if 
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
