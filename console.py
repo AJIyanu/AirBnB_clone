@@ -74,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
             if basekey not in objdict:
                 print("** no instance found **")
                 return
-            olduser = BaseModel(objdict[basekey])
+            olduser = BaseModel(**objdict[basekey])
             print(olduser)
 
     def do_destroy(self, arg):
@@ -116,9 +116,45 @@ class HBNBCommand(cmd.Cmd):
             elif inst.__class__.__name__ == arg:
                 classes.append(str(inst))
         if len(classes) == 0:
-            print("Message here")
+            print("** class doesn't exist **")
         else:
             print(classes)
+
+    def do_update(self, arg):
+        """
+        From here we try to update certain atrributes,
+        one at a time
+        """
+        storage.reload()
+        objdict = storage.all()
+        if arg == "":
+            print("** class name missing **")
+        else:
+            splitted = arg.split()
+            if splitted[0] != "BaseModel":
+                print("** class doesn't exist **")
+                return
+            if len(splitted) == 1:
+                print("** instance id missing **")
+                return
+            basekey = "{}.{}".format(splitted[0], splitted[1])
+            if basekey not in objdict:
+                print("** no instance found **")
+                return
+            if len(splitted) == 2:
+                print("** attribute name missing **")
+                return
+            attrlist = objdict.get(basekey)
+            if splitted[2] not in attrlist:
+                print("** value missing **")
+                return
+            #updtstr = "{}={}".format(splitted[2], splitted[3])
+            attrlist.update({splitted[2]:splitted[3]})
+            dictupdt = {basekey:attrlist}
+            objdict.update(dictupdt)
+            with open("file.json", "w") as file:
+                json.dump(objdict, file)
+
 
 
 if __name__ == '__main__':
