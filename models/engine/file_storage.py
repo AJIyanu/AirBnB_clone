@@ -38,6 +38,7 @@ class FileStorage:
     def reload(self):
         """
         We saved a file and need to convert it back to object
+        file.json is loaded as dictionary into object attribute
         """
         try:
             with open(self.__file_path, "r") as fileread:

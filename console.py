@@ -2,6 +2,7 @@
 """
 This is the console necessary for the project
 This is a commnent
+I reaaly do not understand documentation again
 """
 
 import cmd
@@ -63,11 +64,11 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             splitted = arg.split()
-            if len(splitted) == 1:
-                print("** instance id missing **")
-                return
             if splitted[0] != "BaseModel":
                 print("** class doesn't exist **")
+                return
+            if len(splitted) == 1:
+                print("** instance id missing **")
                 return
             basekey = "{}.{}".format(splitted[0], splitted[1])
             if basekey not in objdict:
@@ -86,11 +87,11 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             splitted = arg.split()
-            if len(splitted) == 1:
-                print("** instance id missing **")
-                return
             if splitted[0] != "BaseModel":
                 print("** class doesn't exist **")
+                return
+            if len(splitted) == 1:
+                print("** instance id missing **")
                 return
             basekey = "{}.{}".format(splitted[0], splitted[1])
             if basekey not in objdict:
@@ -105,7 +106,19 @@ class HBNBCommand(cmd.Cmd):
         prints a list of string representation of all instance
         if a class name is specified, all instance of the class is printed.
         """
-        if 
+        storage.reload()
+        instances = storage.all()
+        classes = []
+        for key in instances.keys():
+            inst = BaseModel(**instances[key])
+            if arg == "":
+                classes.append(str(inst))
+            elif inst.__class__.__name__ == arg:
+                classes.append(str(inst))
+        if len(classes) == 0:
+            print("Message here")
+        else:
+            print(classes)
 
 
 if __name__ == '__main__':
