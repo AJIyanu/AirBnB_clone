@@ -11,7 +11,6 @@ import os
 
 from models.base_model import BaseModel
 from models import storage
-from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
@@ -20,7 +19,6 @@ class HBNBCommand(cmd.Cmd):
     """
 
     prompt = '(hbnb) '
-    clsnms = {"BaseModel":BaseModel, "User":User}
 
     def emptyline(self):
         """
@@ -47,8 +45,8 @@ class HBNBCommand(cmd.Cmd):
         """
         Creates a new user
         """
-        if arg in self.clsnms:
-            newuser = self.clsnms[arg]()
+        if arg == "BaseModel":
+            newuser = BaseModel()
             newuser.save()
             print(newuser.id)
         elif arg == "":
@@ -66,7 +64,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             splitted = arg.split()
-            if splitted[0] not in self.clsnms:
+            if splitted[0] != "BaseModel":
                 print("** class doesn't exist **")
                 return
             if len(splitted) == 1:
@@ -76,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
             if basekey not in objdict:
                 print("** no instance found **")
                 return
-            olduser = self.clsnms[splitted[0]](**objdict[basekey])
+            olduser = BaseModel(**objdict[basekey])
             print(olduser)
 
     def do_destroy(self, arg):
@@ -89,7 +87,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             splitted = arg.split()
-            if splitted[0] not in self.clsnms:
+            if splitted[0] != "BaseModel":
                 print("** class doesn't exist **")
                 return
             if len(splitted) == 1:
@@ -112,8 +110,7 @@ class HBNBCommand(cmd.Cmd):
         instances = storage.all()
         classes = []
         for key in instances.keys():
-            ss = key.split(".")
-            inst = self.clsnms[ss[0]](**instances[key])
+            inst = BaseModel(**instances[key])
             if arg == "":
                 classes.append(str(inst))
             elif inst.__class__.__name__ == arg:
@@ -134,7 +131,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             splitted = arg.split()
-            if splitted[0] not in self.clsnms:
+            if splitted[0] != "BaseModel":
                 print("** class doesn't exist **")
                 return
             if len(splitted) == 1:
@@ -151,11 +148,13 @@ class HBNBCommand(cmd.Cmd):
             if splitted[2] not in attrlist:
                 print("** value missing **")
                 return
+            #updtstr = "{}={}".format(splitted[2], splitted[3])
             attrlist.update({splitted[2]:splitted[3]})
             dictupdt = {basekey:attrlist}
             objdict.update(dictupdt)
             with open("file.json", "w") as file:
                 json.dump(objdict, file)
+
 
 
 if __name__ == '__main__':
