@@ -11,7 +11,12 @@ import os
 
 from models.base_model import BaseModel
 from models import storage
+from models.city import City
+from models.place import Place
+from models.review import Review
 from models.user import User
+from models.state import State
+from models.amenity import Amenity
 
 
 class HBNBCommand(cmd.Cmd):
@@ -20,7 +25,15 @@ class HBNBCommand(cmd.Cmd):
     """
 
     prompt = '(hbnb) '
-    clsnms = {"BaseModel":BaseModel, "User":User}
+    clsnms = {
+                "BaseModel":BaseModel,
+                "User":User,
+                "City":City,
+                "State":State,
+                "Amenity":Amenity,
+                "Place":Place,
+                "Review":Review
+            }
 
     def emptyline(self):
         """
