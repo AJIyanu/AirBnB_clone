@@ -124,6 +124,11 @@ class HBNBCommand(cmd.Cmd):
         storage.reload()
         instances = storage.all()
         classes = []
+        if arg == "":
+            pass
+        elif arg not in self.clsnms:
+            print("** class doesn't exist **")
+            return
         for key in instances.keys():
             ss = key.split(".")
             inst = self.clsnms[ss[0]](**instances[key])
@@ -131,10 +136,7 @@ class HBNBCommand(cmd.Cmd):
                 classes.append(str(inst))
             elif inst.__class__.__name__ == arg:
                 classes.append(str(inst))
-        if len(classes) == 0:
-            print("** class doesn't exist **")
-        else:
-            print(classes)
+        print(classes)
 
     def do_update(self, arg):
         """
@@ -160,13 +162,12 @@ class HBNBCommand(cmd.Cmd):
             if len(splitted) == 2:
                 print("** attribute name missing **")
                 return
-            attrlist = objdict.get(basekey)
-            if splitted[2] not in attrlist:
+            if len(splitted) == 3:
                 print("** value missing **")
                 return
-            attrlist.update({splitted[2]:splitted[3]})
-            dictupdt = {basekey:attrlist}
-            objdict.update(dictupdt)
+            clsdict = objdict.get(basekey)
+            clsdict.update({splitted[2]: splitted[3]})
+            objdict.update({basekey: clsdict})
             with open("file.json", "w") as file:
                 json.dump(objdict, file)
 
