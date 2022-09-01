@@ -40,6 +40,9 @@ class BaseModel(object):
             self.my_number = kwargs['my_number']
         if 'id' not in kwargs:
             storage.new(self)
+        for key in kwargs:
+            if key not in dir(self):
+                self.key = kwargs[key]
 
     def __str__(self):
         """

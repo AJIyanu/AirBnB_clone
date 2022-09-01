@@ -166,7 +166,11 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
                 return
             clsdict = objdict.get(basekey)
-            clsdict.update({splitted[2]: splitted[3]})
+            try:
+                value = int(splitted[3])
+            except Exception:
+                value = str(splitted[3].strip('"\''))
+            clsdict.update({splitted[2]: value})
             objdict.update({basekey: clsdict})
             with open("file.json", "w") as file:
                 json.dump(objdict, file)
