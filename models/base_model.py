@@ -42,7 +42,7 @@ class BaseModel(object):
             storage.new(self)
         for key in kwargs:
             if key not in dir(self):
-                self.key = kwargs[key]
+                setattr(self, key, kwargs[key])
 
     def __str__(self):
         """

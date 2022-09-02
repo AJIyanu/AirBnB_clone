@@ -72,21 +72,21 @@ def exec_command(my_console, the_command, last_lines = 1):
 """
  Tests
 """
-result = exec_command(my_console, "create BaseModel")
+result = exec_command(my_console, "create User")
 if result is None or result == "":
     print("FAIL: No ID retrieved")
     
 model_id = result
 
-exec_command(my_console, "update BaseModel {} test_name \"test_value\"".format(model_id))
+exec_command(my_console, "update User {} test_name \"test_value\"".format(model_id))
 
-result = exec_command(my_console, "show BaseModel {}".format(model_id))
+result = exec_command(my_console, "show User {}".format(model_id))
 if result is None or result == "":
     print("FAIL: no output")
     
-if "[BaseModel]" not in result or model_id not in result:
+if "[User]" not in result or model_id not in result:
     print("FAIL: wrong output format: \"{}\"".format(result))
-
+    
 if "test_name" not in result or "test_value" not in result:
     print("FAIL: new value not stored in the object: \"{}\"".format(result))
     
